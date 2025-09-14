@@ -3,6 +3,11 @@ using Lab1_patterns;
 
 class Program
 {
+    /// <summary>
+    /// Reads an integer from the console with a prompt. Repeats until a valid integer is entered.
+    /// </summary>
+    /// <param name="hint">Prompt text shown before reading input.</param>
+    /// <returns>The parsed integer value.</returns>
     static int ReadInt(string hint)
     {
         while (true)
@@ -13,6 +18,12 @@ class Program
         }
     }
 
+    /// <summary>
+    /// Reads a double from the console with a prompt. Repeats until a valid number is entered.
+    /// Replaces '.' with ',' to support locales using a comma as the decimal separator.
+    /// </summary>
+    /// <param name="hint">Prompt text shown before reading input.</param>
+    /// <returns>The parsed double value.</returns>
     static double ReadDouble(string hint)
     {
         while (true)
@@ -23,10 +34,25 @@ class Program
         }
     }
 
+    /// <summary>
+    /// Operators registered in the app, keyed by operator ID.
+    /// </summary>
     static Dictionary<int, Operator> operators = new();
+
+    /// <summary>
+    /// Human-friendly operator names keyed by operator ID.
+    /// </summary>
     static Dictionary<int, string> operatorNames = new();
+
+    /// <summary>
+    /// Customers registered in the app, keyed by customer ID.
+    /// </summary>
     static Dictionary<int, Customer> customers = new();
 
+    /// <summary>
+    /// Application entry point. Presents a console menu to manage operators and customers,
+    /// perform calls/messages/data usage, and handle billing operations.
+    /// </summary>
     static void Main()
     {
         while (true)
