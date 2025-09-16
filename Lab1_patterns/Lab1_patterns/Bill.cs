@@ -39,9 +39,6 @@ namespace Lab1_patterns
         /// Checks whether a charge of the given amount fits within the spending limit.
         /// </summary>
         /// <param name="amount">The amount to test (assumed non-negative).</param>
-        /// <returns>
-        /// <c>true</c> if <see cref="CurrentDebt"/> + <paramref name="amount"/> ≤ <see cref="LimitingAmount"/>; otherwise, <c>false</c>.
-        /// </returns>
         public bool Check(double amount) => CurrentDebt + amount <= LimitingAmount;
 
 
@@ -49,9 +46,6 @@ namespace Lab1_patterns
         /// Adds the specified amount to the current debt (no limit check here).
         /// </summary>
         /// <param name="amount">The amount to add to the debt (assumed non-negative).</param>
-        /// <remarks>
-        /// Call <see cref="Check(double)"/> or use <see cref="TryCharge(double)"/> if you need limit enforcement.
-        /// </remarks>
         public void Add(double amount)
         {
             CurrentDebt += amount;
@@ -63,9 +57,6 @@ namespace Lab1_patterns
         /// the debt is set to zero and the overpay amount is printed to the console.
         /// </summary>
         /// <param name="amount">The payment amount (assumed non-negative).</param>
-        /// <remarks>
-        /// This method does not track credits or return the overpaid portion; it only reports it.
-        /// </remarks>
         public void Pay(double amount)
         {
             double newDebt = CurrentDebt - amount;
@@ -90,9 +81,6 @@ namespace Lab1_patterns
         /// Attempts to charge the specified amount, enforcing the spending limit.
         /// </summary>
         /// <param name="amount">The amount to charge (assumed non-negative).</param>
-        /// <returns>
-        /// <c>true</c> if the charge was applied (within the limit); otherwise <c>false</c> and no state change occurs.
-        /// </returns>
         public bool TryCharge(double amount)
         {
             if (!Check(amount))

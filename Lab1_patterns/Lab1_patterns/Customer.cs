@@ -44,7 +44,6 @@ namespace Lab1_patterns
         /// Subscribed operators keyed by operator ID.
         /// Key: operator ID; Value: <see cref="Operator"/> instance.
         /// </summary>
-        /// 
         public Dictionary<int, Operator> operators { get; set; } = new Dictionary<int, Operator>();
 
         /// <summary>
@@ -52,10 +51,7 @@ namespace Lab1_patterns
         /// </summary>
         /// <param name="name">Customer name.</param>
         /// <param name="age">Customer age.</param>
-        /// <param name="limitingAmount">
-        /// Intended spending limit for an initial bill (currently not used in this constructor).
-        /// </param>
-        public Customer(string name, int age, double limitingAmount)
+        public Customer(string name, int age)
         {
             Console.WriteLine("\nCreated customer!\n");
             this.Id = customerId++;
@@ -70,14 +66,21 @@ namespace Lab1_patterns
         /// <param name="operatorId">The ID of the operator to set active.</param>
         public void SetActiveOperatorById(int operatorId)
         {
-            if (ActiveOperator == null)
+            if (!operators.ContainsKey(operatorId))
             {
-                ActiveOperator = operators[operatorId];
-                Console.WriteLine("The active operator was successfully seted\n");
+                Console.WriteLine("Please, connect to the operator!");
             }
             else
             {
-                Console.WriteLine($"The active operator is already set \"{ActiveOperator}\". Change it if necessary.");
+                if (ActiveOperator == null)
+                {
+                    ActiveOperator = operators[operatorId];
+                    Console.WriteLine("The active operator was successfully seted\n");
+                }
+                else
+                {
+                    Console.WriteLine($"The active operator is already set \"{ActiveOperator}\". Change it if necessary.");
+                }
             }
         }
         /// <summary>

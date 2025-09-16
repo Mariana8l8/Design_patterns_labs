@@ -50,13 +50,11 @@ namespace Lab1_patterns
         /// True for &lt; 18 or &gt; 65.
         /// </summary>
         /// <param name="age">Customer age.</param>
-        /// <returns><c>true</c> if eligible for age discount; otherwise, <c>false</c>.</returns>
         private static bool AgeDiscount(int age) => age < 18 || age > 65;
 
         /// <summary>
         /// Global store of bills by customer ID, shared across all <see cref="Operator"/> instances.
         /// </summary>
-        /// <remarks>Key: customer ID; Value: <see cref="Bill"/>.</remarks>
         public static Dictionary<int, Bill> bills { get; set; } = new Dictionary<int, Bill>();
 
         /// <summary>
@@ -79,7 +77,7 @@ namespace Lab1_patterns
         /// <summary>
         /// Calculates the cost of a voice call, applying a discount when eligible.
         /// A discount applies if both customers use the same operator or the caller qualifies
-        /// for an age-based discount (under 18 or over 65) and <see cref="DiscountRate"/> &gt; 0.
+        /// for an age-based discount (under 18 or over 65) and <see cref="DiscountRate"/>
         /// </summary>
         /// <param name="min">Call duration in minutes.</param>
         /// <param name="customer">Caller.</param>
@@ -136,14 +134,19 @@ namespace Lab1_patterns
         /// </summary>
         /// <param name="customer">Customer to connect.</param>
         /// <param name="amountLimit">Spending limit for the new bill.</param>
-        public void ConnectionToTheOperator(Customer customer, double amountLimit)
+        public void ConnectionToTheOperator(Customer customer, double amountLimit = 0)
         {
-            if (customer.operators.ContainsKey(Id)) Console.WriteLine("Operator already connected!\n");
+            bool firstConnecting = true;
+            if (customer.operators.ContainsKey(Id) ) Console.WriteLine("Operator already connected!\n");
             else
             {
                 customer.operators.Add(Id, this);
                 Console.WriteLine($"The operator has been successfully connected to the {customer.Name}.\n");
-                CreateBill(customer.Id, amountLimit);
+                if (firstConnecting)
+                {
+                    CreateBill(customer.Id, amountLimit);
+                    firstConnecting = false;
+                }
             }
         }
 
