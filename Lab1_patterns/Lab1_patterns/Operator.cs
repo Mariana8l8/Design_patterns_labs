@@ -137,7 +137,7 @@ namespace Lab1_patterns
         public void ConnectionToTheOperator(Customer customer, double amountLimit = 0)
         {
             bool firstConnecting = true;
-            if (customer.operators.ContainsKey(Id) ) Console.WriteLine("Operator already connected!\n");
+            if (customer.operators.ContainsKey(Id)) Console.WriteLine("Operator already connected!\n");
             else
             {
                 customer.operators.Add(Id, this);
@@ -151,13 +151,27 @@ namespace Lab1_patterns
         }
 
         /// <summary>
+        /// Disconnects this operator from the specified customer.
+        /// </summary>
+        /// <param name="customer">Customer to disconnect.</param>
+        public void DisconnectFromTheOperator(Customer customer)
+        {
+            if (!customer.operators.ContainsKey(Id)) Console.WriteLine("Operator was not connected!\n");
+            else
+            {
+                customer.operators.Remove(Id);
+                Console.WriteLine("Operator successfully disconnected!\n");
+            }
+        }
+
+        /// <summary>
         /// Creates a bill for the customer with the specified ID, or returns the existing one.
         /// Bills are stored in the static <see cref="bills"/> dictionary (key = customer ID).
         /// </summary>
         /// <param name="id">Customer ID.</param>
         /// <param name="amountLimit">Spending limit to set for the bill.</param>
         /// <returns>The <see cref="Bill"/> instance (new or existing).</returns>
-        public Bill CreateBill(int id, double amountLimit) 
+        public Bill CreateBill(int id, double amountLimit)
         {
             if (bills.ContainsKey(id))
             {
@@ -171,6 +185,6 @@ namespace Lab1_patterns
                 Console.WriteLine("Bill successfully created!");
                 return bill;
             }
-        } 
+        }
     }
 }
